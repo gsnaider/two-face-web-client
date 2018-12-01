@@ -1,4 +1,4 @@
-package ar.fi.uba.twoface.model;
+package ar.uba.fi.twoface.model;
 
 import ar.uba.fi.twoface.model.Model;
 import ar.uba.fi.twoface.model.ModelImpl;
