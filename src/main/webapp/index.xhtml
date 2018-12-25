@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Two-Face Inpainting</title>
+</h:head>
+<body>
+<ui:composition template="/view/templates/common.xhtml">
+    <ui:define name="header">
+        <h1>Two-Face Inpainting</h1>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <!--TODO: Actualizar-->
+        Descripcion del proyecto.
+        <br/>
+        <br/>
+
+        <h:form>
+            <p:commandButton value="Comenzar" ajax="false"
+                             id="startInpaintingButton"
+                             action="#{startInpaintingView.startInpainting}"
+                             styleClass="ui-priority-primary"/>
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>
+</body>
+</html>
