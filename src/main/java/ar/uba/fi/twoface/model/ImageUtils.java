@@ -89,4 +89,13 @@ public final class ImageUtils {
         return result;
     }
 
+    /**
+     * Modifies the given image, setting a mask of zeroes on the given mask.
+     */
+    public static void maskImage(BufferedImage image, Rectangle mask) {
+        Graphics2D g2d = image.createGraphics();
+        g2d.setColor(Color.BLACK);
+        g2d.fill(mask);
+        g2d.dispose();
+    }
 }
