@@ -1,6 +1,7 @@
 package ar.uba.fi.twoface.model;
 
-import ar.uba.fi.jersey.CustomLoggingFilter;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.pmw.tinylog.Logger;
 
@@ -23,19 +24,25 @@ public class InferenceClient {
     }
 
     public InferenceResponse infer(InferenceRequest request) throws TwoFaceException {
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(request);
+        } catch (JsonProcessingException e) {
+            throw new TwoFaceException("Error creating request json.", e);
+        }
         client.register(new LoggingFilter());
         Response response = client.target(backendUrl)
                 .path(INFERENCE_PATH)
                 .request(MediaType.APPLICATION_JSON)
-                .post(Entity.entity(request, MediaType.APPLICATION_JSON));
-        Logger.info("Status {}", response.getStatus());
-        Logger.info("Response {}", response);
+                .post(Entity.json(json));
+
+        Logger.info("Inference response status: {}", response.getStatus());
 
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             throw new TwoFaceException("Remote error on inference.");
         }
-        InferenceResponse inferenceResponse = response.readEntity(InferenceResponse.class);
-        return inferenceResponse;
+        return response.readEntity(InferenceResponse.class);
     }
 
 }

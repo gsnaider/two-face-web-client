@@ -1,5 +1,7 @@
 package ar.uba.fi.twoface.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 public class TwoFaceException extends Exception {
 
     public TwoFaceException(String s) {
@@ -9,4 +11,5 @@ public class TwoFaceException extends Exception {
     public TwoFaceException(String s, Exception e) {
         super(s, e);
     }
+
 }

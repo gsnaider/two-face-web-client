@@ -1,8 +1,10 @@
 package ar.uba.fi.twoface.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashMap;
 import java.util.Map;
 
+@XmlRootElement
 public class InferenceRequest {
     
     private Map<String, double[][][][]> inputs;

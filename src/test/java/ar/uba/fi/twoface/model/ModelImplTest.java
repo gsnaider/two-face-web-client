@@ -25,7 +25,9 @@ public class ModelImplTest {
         BufferedImage maskedImage = ImageIO.read(new File(TEST_MASK_IMAGE_PATH));
         BufferedImage referenceImage = ImageIO.read(new File(TEST_REFERENCE_IMAGE_PATH));
 
-        model.patchImage(maskedImage, referenceImage);
+        BufferedImage response = model.patchImage(maskedImage, referenceImage);
+        File outputfile = new File("image.png");
+        ImageIO.write(response, "png", outputfile);
     }
 
 }
