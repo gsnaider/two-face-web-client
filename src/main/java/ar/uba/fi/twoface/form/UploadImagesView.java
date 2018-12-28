@@ -2,7 +2,8 @@ package ar.uba.fi.twoface.form;
 
 import org.pmw.tinylog.Logger;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -10,7 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
-import javax.servlet.ServletContext;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,17 +21,15 @@ import java.io.IOException;
 @SessionScoped
 public class UploadImagesView {
 
-    private UploadedFile imageToModifyFile;
-    private UploadedFile referenceImageFile;
+    private static final int IMAGE_SIZE = 128;
 
     private BufferedImage imageToModify;
     private BufferedImage referenceImage;
 
     @PostConstruct
     public void init() {
-        imageToModify = new BufferedImage(128, 128, BufferedImage.TYPE_INT_RGB);
-        referenceImage = new BufferedImage(128, 128, BufferedImage.TYPE_INT_RGB);
-
+        imageToModify = imagePlaceholder();
+        referenceImage = imagePlaceholder();
     }
 
     public void uploadImageToModify(FileUploadEvent event) {
@@ -41,6 +40,7 @@ public class UploadImagesView {
         referenceImage = getImageFromFileUploadEvent(event);
     }
 
+    // TODO resize images to IMAGE_SIZE.
     private BufferedImage getImageFromFileUploadEvent(FileUploadEvent event) {
         byte[] contents = event.getFile().getContents();
         BufferedImage image = null;
@@ -56,28 +56,12 @@ public class UploadImagesView {
         return image;
     }
 
-    public UploadedFile getImageToModifyFile() {
-        return imageToModifyFile;
+    public StreamedContent getImageToModifyForDisplay() {
+        return getImageAsStreamedContent(imageToModify);
     }
 
-    public void setImageToModifyFile(UploadedFile imageToModifyFile) {
-        this.imageToModifyFile = imageToModifyFile;
-    }
-
-    public UploadedFile getReferenceImageFile() {
-        return referenceImageFile;
-    }
-
-    public void setReferenceImageFile(UploadedFile referenceImageFile) {
-        this.referenceImageFile = referenceImageFile;
-    }
-
-    public byte[] getImageToModify() {
-        return getImageAsByteArray(imageToModify);
-    }
-
-    public byte[] getReferenceImage() {
-        return getImageAsByteArray(referenceImage);
+    public StreamedContent getReferenceImageForDisplay() {
+        return getImageAsStreamedContent(referenceImage);
     }
 
     private byte[] getImageAsByteArray(BufferedImage image) {
@@ -88,6 +72,28 @@ public class UploadImagesView {
             Logger.error("Error generating image to render.", e);
         }
         return outputStream.toByteArray();
+    }
+
+    private StreamedContent getImageAsStreamedContent(BufferedImage image) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "jpg", outputStream);
+        } catch (IOException e) {
+            Logger.error("Error generating image for display.", e);
+        }
+        return new DefaultStreamedContent(new ByteArrayInputStream(outputStream.toByteArray()), "image/jpg");
+    }
+
+    private BufferedImage imagePlaceholder() {
+        BufferedImage placeholder =
+                new BufferedImage(IMAGE_SIZE, IMAGE_SIZE, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graph = placeholder.createGraphics();
+        graph.setColor(Color.WHITE);
+        graph.fillRect(0, 0, placeholder.getWidth(), placeholder.getHeight());
+        graph.setColor(Color.BLACK);
+        graph.drawRect(0, 0, placeholder.getWidth() - 1, placeholder.getHeight() - 1);
+        graph.dispose();
+        return placeholder;
     }
 
 }

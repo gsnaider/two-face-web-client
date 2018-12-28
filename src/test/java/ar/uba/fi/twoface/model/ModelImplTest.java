@@ -15,8 +15,8 @@ public class ModelImplTest {
 
     private static final String TEST_BACKEND_LOCATION = "http://localhost:8501/v1/models";
 
-    private static final String TEST_MASK_IMAGE_PATH = "/home/gaston/workspace/datasets/CASIA-WebFace/CASIA-WebFace/data/test/0000045/001.jpg";
-    private static final String TEST_REFERENCE_IMAGE_PATH = "/home/gaston/workspace/datasets/CASIA-WebFace/CASIA-WebFace/data/test/0000045/002.jpg";
+    private static final String TEST_MASK_IMAGE_PATH = "/home/gaston/workspace/datasets/CASIA-WebFace/CASIA-WebFace/data/test/0000102/003.jpg";
+    private static final String TEST_REFERENCE_IMAGE_PATH = "/home/gaston/workspace/datasets/CASIA-WebFace/CASIA-WebFace/data/test/0000102/004.jpg";
 
     Model model = new ModelImpl(TEST_BACKEND_LOCATION);
 

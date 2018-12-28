@@ -23,26 +23,38 @@
 
         <h:form id="upload-form">
             <h:panelGrid columns="2" cellpadding="5">
-                <p:fieldset legend="Imágen a modificar" style="margin-bottom:20px">
+                <p:fieldset legend="Imágen a modificar"
+                            style="margin-bottom:20px">
                     <h:panelGrid columns="2" cellpadding="5">
-                        <p:fileUpload fileUploadListener="#{uploadImagesView.uploadImageToModify}" mode="advanced"
-                                      update="upload-form" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(jpe?g|png)$/" />
-                        <p:graphicImage
-                                value="#{uploadImagesView.imageToModify}"/>
+                        <p:fileUpload
+                                fileUploadListener="#{uploadImagesView.uploadImageToModify}"
+                                mode="advanced"
+                                update="imageToModify" auto="true"
+                                sizeLimit="100000"
+                                allowTypes="/(\.|\/)(jpe?g|png)$/"/>
+                        <p:graphicImage id="imageToModify"
+                                        value="#{uploadImagesView.imageToModifyForDisplay}"
+                                        cache="false"/>
                     </h:panelGrid>
                 </p:fieldset>
 
-                <p:fieldset legend="Imágen de referencia" style="margin-bottom:20px">
+                <p:fieldset legend="Imágen de referencia"
+                            style="margin-bottom:20px">
                     <h:panelGrid columns="2" cellpadding="5">
-                        <p:fileUpload fileUploadListener="#{uploadImagesView.uploadReferenceImage}" mode="advanced"
-                                      update="upload-form" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(jpe?g|png)$/" />
-                        <p:graphicImage
-                                value="#{uploadImagesView.referenceImage}"/>
+                        <p:fileUpload
+                                fileUploadListener="#{uploadImagesView.uploadReferenceImage}"
+                                mode="advanced"
+                                update="referenceImage" auto="true"
+                                sizeLimit="100000"
+                                allowTypes="/(\.|\/)(jpe?g|png)$/"/>
+                        <p:graphicImage id="referenceImage"
+                                        value="#{uploadImagesView.referenceImageForDisplay}"
+                                        cache="false"/>
                     </h:panelGrid>
                 </p:fieldset>
             </h:panelGrid>
 
-            <p:growl id="messages" showDetail="true" />
+            <p:growl id="messages" showDetail="true"/>
 
         </h:form>
 

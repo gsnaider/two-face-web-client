@@ -1,7 +1,5 @@
 package ar.uba.fi.twoface.form;
 
-import org.primefaces.model.UploadedFile;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 

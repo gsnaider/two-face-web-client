@@ -84,4 +84,5 @@ public final class ImageUtils {
         g2d.fill(mask);
         g2d.dispose();
     }
+
 }
