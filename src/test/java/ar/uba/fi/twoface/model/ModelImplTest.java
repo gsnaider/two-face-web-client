@@ -36,8 +36,7 @@ public class ModelImplTest {
         ImageIO.write(maskedImage, "jpg", new File("masked.jpg"));
 
         BufferedImage response = model.patchImage(maskedImage, referenceImage);
-        File outputfile = new File("image.jpg");
-        ImageIO.write(response, "jpg", outputfile);
+        ImageIO.write(response, "jpg", new File("patched.jpg"));
     }
 
 }
