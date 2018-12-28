@@ -64,16 +64,6 @@ public class UploadImagesView {
         return getImageAsStreamedContent(referenceImage);
     }
 
-    private byte[] getImageAsByteArray(BufferedImage image) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        try {
-            ImageIO.write(image, "jpg", outputStream);
-        } catch (IOException e) {
-            Logger.error("Error generating image to render.", e);
-        }
-        return outputStream.toByteArray();
-    }
-
     private StreamedContent getImageAsStreamedContent(BufferedImage image) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
