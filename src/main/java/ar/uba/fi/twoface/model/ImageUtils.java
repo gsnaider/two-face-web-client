@@ -75,20 +75,6 @@ public final class ImageUtils {
         return rgb;
     }
 
-    private static int[][] getRGB(BufferedImage image) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-        int[][] result = new int[height][width];
-
-        for (int row = 0; row < height; row++) {
-            for (int col = 0; col < width; col++) {
-                result[row][col] = image.getRGB(col, row);
-            }
-        }
-
-        return result;
-    }
-
     /**
      * Modifies the given image, setting a mask of zeroes on the given mask.
      */
