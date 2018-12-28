@@ -1,5 +1,6 @@
 package ar.uba.fi.twoface.form;
 
+import ar.uba.fi.twoface.model.ImageUtils;
 import org.pmw.tinylog.Logger;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -21,7 +22,9 @@ import java.io.IOException;
 @SessionScoped
 public class UploadImagesView {
 
-    private static final int IMAGE_SIZE = 128;
+    // TODO move all constants to same place.
+    private static final int IMAGE_WIDTH = 128;
+    private static final int IMAGE_HEIGTH = 128;
 
     private BufferedImage imageToModify;
     private BufferedImage referenceImage;
@@ -40,12 +43,12 @@ public class UploadImagesView {
         referenceImage = getImageFromFileUploadEvent(event);
     }
 
-    // TODO resize images to IMAGE_SIZE.
     private BufferedImage getImageFromFileUploadEvent(FileUploadEvent event) {
         byte[] contents = event.getFile().getContents();
         BufferedImage image = null;
         try {
             image = ImageIO.read(new ByteArrayInputStream(contents));
+            image = ImageUtils.resize(image, IMAGE_WIDTH, IMAGE_HEIGTH);
             FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (IOException e) {
@@ -84,7 +87,7 @@ public class UploadImagesView {
 
     private BufferedImage imagePlaceholder() {
         BufferedImage placeholder =
-                new BufferedImage(IMAGE_SIZE, IMAGE_SIZE, BufferedImage.TYPE_INT_RGB);
+                new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGTH, BufferedImage.TYPE_INT_RGB);
         Graphics2D graph = placeholder.createGraphics();
         graph.setColor(Color.WHITE);
         graph.fillRect(0, 0, placeholder.getWidth(), placeholder.getHeight());
