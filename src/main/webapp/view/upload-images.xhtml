@@ -54,6 +54,13 @@
                 </p:panel>
             </h:panelGrid>
 
+            <!--TODO disable if the images were not uploaded-->
+            <p:commandButton value="Enmascarar" ajax="false"
+                             id="maskButton"
+                             action="#{uploadImagesView.mask}"
+                             disabled="false"
+                             styleClass="ui-priority-primary"/>
+
             <p:growl id="messages" showDetail="true"/>
 
         </h:form>

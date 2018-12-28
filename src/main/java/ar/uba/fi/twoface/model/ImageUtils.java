@@ -85,4 +85,12 @@ public final class ImageUtils {
         g2d.dispose();
     }
 
+    public static BufferedImage copy(BufferedImage image) {
+        BufferedImage b = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        Graphics g = b.getGraphics();
+        g.drawImage(image, 0, 0, null);
+        g.dispose();
+        return b;
+    }
+
 }

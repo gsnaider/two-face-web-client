@@ -17,7 +17,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-@ManagedBean
+@ManagedBean(name = "uploadImagesView")
 @SessionScoped
 public class UploadImagesView {
 
@@ -64,7 +64,15 @@ public class UploadImagesView {
         return getImageAsStreamedContent(referenceImage);
     }
 
-    private StreamedContent getImageAsStreamedContent(BufferedImage image) {
+    public BufferedImage getImageToModify() {
+        return imageToModify;
+    }
+
+    public String mask() {
+        return "masked?faces-redirect=true";
+    }
+
+    StreamedContent getImageAsStreamedContent(BufferedImage image) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
             ImageIO.write(image, "jpg", outputStream);

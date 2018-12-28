@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Two-Face Inpainting</title>
+</h:head>
+<body>
+<ui:composition template="/view/templates/common.xhtml">
+    <ui:define name="header">
+        <h1>Two-Face Inpainting</h1>
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>Enmascarado</h2>
+
+        <!--TODO add primefaces steps-->
+
+        <h:form>
+            <h:panelGrid columns="3" cellpadding="5">
+                <p:panel header="Imágen original"
+                         style="margin-bottom:20px">
+                    <p:graphicImage id="originalImage"
+                                    value="#{maskedImageView.originalImageForDisplay}"
+                                    cache="false"/>
+                </p:panel>
+                <p:panel header="Imágen enmascarada"
+                         style="margin-bottom:20px">
+                    <p:graphicImage id="maskedImage"
+                                    value="#{maskedImageView.maskedImageForDisplay}"
+                                    cache="false"/>
+                </p:panel>
+                <p:panel header="Imágen de referencia"
+                         style="margin-bottom:20px">
+                    <p:graphicImage id="referenceImage"
+                                    value="#{maskedImageView.referenceImageForDisplay}"
+                                    cache="false"/>
+                </p:panel>
+            </h:panelGrid>
+        </h:form>
+
+        <h3>
+            <a href="../index.xhtml">Volver</a>
+        </h3>
+
+    </ui:define>
+</ui:composition>
+
+</body>
+</html>
