@@ -21,9 +21,9 @@
 
         <!--TODO add primefaces steps-->
 
-        <h:form id="upload-form">
+        <h:form>
             <h:panelGrid columns="2" cellpadding="5">
-                <p:fieldset legend="Imágen a modificar"
+                <p:panel header="Imágen a modificar"
                             style="margin-bottom:20px">
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:fileUpload
@@ -36,9 +36,9 @@
                                         value="#{uploadImagesView.imageToModifyForDisplay}"
                                         cache="false"/>
                     </h:panelGrid>
-                </p:fieldset>
+                </p:panel>
 
-                <p:fieldset legend="Imágen de referencia"
+                <p:panel header="Imágen de referencia"
                             style="margin-bottom:20px">
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:fileUpload
@@ -51,7 +51,7 @@
                                         value="#{uploadImagesView.referenceImageForDisplay}"
                                         cache="false"/>
                     </h:panelGrid>
-                </p:fieldset>
+                </p:panel>
             </h:panelGrid>
 
             <p:growl id="messages" showDetail="true"/>
