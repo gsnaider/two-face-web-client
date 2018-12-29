@@ -1,6 +1,5 @@
 package ar.uba.fi.twoface.form;
 
-import ar.uba.fi.twoface.model.ImageUtils;
 import ar.uba.fi.twoface.model.Model;
 import ar.uba.fi.twoface.model.TwoFaceException;
 import org.pmw.tinylog.Logger;
@@ -10,7 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.awt.image.BufferedImage;
 
@@ -51,6 +49,11 @@ public class PatchedImageView {
 
     public StreamedContent getPatchedImageForDisplay() {
         return ImageDisplayUtils.getImageAsStreamedContent(patchedImage);
+    }
+
+    public String mainMenu() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "../index.xhtml?faces-redirect=true";
     }
 
 }

@@ -63,21 +63,23 @@
                 </p:panel>
             </h:panelGrid>
 
-            <p:commandButton value="Enmascarar" ajax="false"
-                             id="maskButton"
-                             action="#{uploadImagesView.mask}"
-                             disabled="#{(not uploadImagesView.imageToModifyUploaded)
-                             or (not uploadImagesView.referenceImageUploaded)}"
-                             styleClass="ui-priority-primary"/>
+
+            <h:panelGrid columns="2" cellpadding="5">
+                <h3>
+                    <a href="../index.xhtml">Volver</a>
+                </h3>
+
+                <p:commandButton value="Siguiente" ajax="false"
+                                 id="maskButton"
+                                 action="#{uploadImagesView.mask}"
+                                 disabled="#{(not uploadImagesView.imageToModifyUploaded)
+                                 or (not uploadImagesView.referenceImageUploaded)}"
+                                 styleClass="ui-priority-primary"/>
+            </h:panelGrid>
 
             <p:growl id="messages" showDetail="true"/>
 
         </h:form>
-
-        <!--TODO close the session if the user goes back. -->
-        <h3>
-            <a href="../index.xhtml">Volver</a>
-        </h3>
 
     </ui:define>
 </ui:composition>

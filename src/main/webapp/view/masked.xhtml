@@ -49,17 +49,18 @@
                 </p:panel>
             </h:panelGrid>
 
-            <p:commandButton value="Rellenar" ajax="false"
-                             id="patchButton"
-                             action="#{maskedImageView.patch}"
-                             disabled="false"
-                             styleClass="ui-priority-primary"/>
+            <h:panelGrid columns="2" cellpadding="5">
+                <h3>
+                    <a href="upload-images.xhtml">Volver</a>
+                </h3>
+                <p:commandButton value="Siguiente" ajax="false"
+                                 id="patchButton"
+                                 action="#{maskedImageView.patch}"
+                                 disabled="false"
+                                 styleClass="ui-priority-primary"/>
+            </h:panelGrid>
 
         </h:form>
-
-        <h3>
-            <a href="../index.xhtml">Volver</a>
-        </h3>
 
     </ui:define>
 </ui:composition>
