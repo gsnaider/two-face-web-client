@@ -10,14 +10,14 @@ import javax.faces.bean.SessionScoped;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static ar.uba.fi.twoface.model.Constants.IMAGE_HEIGHT;
+import static ar.uba.fi.twoface.model.Constants.IMAGE_WIDTH;
+import static ar.uba.fi.twoface.model.Constants.PATCH_HEIGHT;
+import static ar.uba.fi.twoface.model.Constants.PATCH_WIDTH;
+
 @ManagedBean
 @SessionScoped
 public class MaskedImageView {
-
-    private static final int IMAGE_WIDTH = 128;
-    private static final int IMAGE_HEIGHT = 128;
-    private static final int PATCH_WIDTH = 32;
-    private static final int PATCH_HEIGHT = 32;
 
     private BufferedImage maskedImage;
 

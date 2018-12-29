@@ -8,10 +8,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ModelImplTest {
+import static ar.uba.fi.twoface.model.Constants.IMAGE_HEIGHT;
+import static ar.uba.fi.twoface.model.Constants.IMAGE_WIDTH;
+import static ar.uba.fi.twoface.model.Constants.PATCH_HEIGHT;
+import static ar.uba.fi.twoface.model.Constants.PATCH_WIDTH;
 
-    private static final int IMAGE_SIZE = 128;
-    private static final int PATCH_SIZE = 32;
+public class ModelImplTest {
 
     private static final String TEST_BACKEND_LOCATION = "http://localhost:8501/v1/models";
 
@@ -26,13 +28,13 @@ public class ModelImplTest {
         BufferedImage maskedImage = ImageIO.read(new File(TEST_MASK_IMAGE_PATH));
         BufferedImage referenceImage = ImageIO.read(new File(TEST_REFERENCE_IMAGE_PATH));
 
-        maskedImage = model.resize(maskedImage, IMAGE_SIZE, IMAGE_SIZE);
-        referenceImage = model.resize(referenceImage, IMAGE_SIZE, IMAGE_SIZE);
+        maskedImage = model.resize(maskedImage, IMAGE_WIDTH, IMAGE_HEIGHT);
+        referenceImage = model.resize(referenceImage, IMAGE_WIDTH, IMAGE_HEIGHT);
 
-        int maskUpperLeftCol = (IMAGE_SIZE - PATCH_SIZE) / 2;
-        int maskUpperLeftRow = (IMAGE_SIZE - PATCH_SIZE) / 2;
+        int maskUpperLeftCol = (IMAGE_WIDTH - PATCH_WIDTH) / 2;
+        int maskUpperLeftRow = (IMAGE_HEIGHT - PATCH_HEIGHT) / 2;
 
-        model.maskImage(maskedImage, new Rectangle(maskUpperLeftCol, maskUpperLeftRow, PATCH_SIZE, PATCH_SIZE));
+        model.maskImage(maskedImage, new Rectangle(maskUpperLeftCol, maskUpperLeftRow, PATCH_WIDTH, PATCH_HEIGHT));
         ImageIO.write(maskedImage, "jpg", new File("masked.jpg"));
 
         BufferedImage response = model.patchImage(maskedImage, referenceImage);

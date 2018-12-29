@@ -16,13 +16,12 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import static ar.uba.fi.twoface.model.Constants.IMAGE_HEIGHT;
+import static ar.uba.fi.twoface.model.Constants.IMAGE_WIDTH;
+
 @ManagedBean(name = "uploadImagesView")
 @SessionScoped
 public class UploadImagesView {
-
-    // TODO move all constants to same place.
-    private static final int IMAGE_WIDTH = 128;
-    private static final int IMAGE_HEIGTH = 128;
 
     private BufferedImage imageToModify;
     private BufferedImage referenceImage;
@@ -49,7 +48,7 @@ public class UploadImagesView {
         BufferedImage image = null;
         try {
             image = ImageIO.read(new ByteArrayInputStream(contents));
-            image = model.resize(image, IMAGE_WIDTH, IMAGE_HEIGTH);
+            image = model.resize(image, IMAGE_WIDTH, IMAGE_HEIGHT);
             FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (IOException e) {
@@ -70,7 +69,7 @@ public class UploadImagesView {
 
     private BufferedImage imagePlaceholder() {
         BufferedImage placeholder =
-                new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGTH, BufferedImage.TYPE_INT_RGB);
+                new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D graph = placeholder.createGraphics();
         graph.setColor(Color.WHITE);
         graph.fillRect(0, 0, placeholder.getWidth(), placeholder.getHeight());
