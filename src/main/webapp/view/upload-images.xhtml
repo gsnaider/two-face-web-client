@@ -33,12 +33,12 @@
         <h:form>
             <h:panelGrid columns="2" cellpadding="5">
                 <p:panel header="Imágen a modificar"
-                            style="margin-bottom:20px">
+                         style="margin-bottom:20px">
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:fileUpload
                                 fileUploadListener="#{uploadImagesView.uploadImageToModify}"
                                 mode="advanced"
-                                update="imageToModify" auto="true"
+                                update="imageToModify maskButton" auto="true"
                                 sizeLimit="100000"
                                 allowTypes="/(\.|\/)(jpe?g|png)$/"/>
                         <p:graphicImage id="imageToModify"
@@ -48,12 +48,12 @@
                 </p:panel>
 
                 <p:panel header="Imágen de referencia"
-                            style="margin-bottom:20px">
+                         style="margin-bottom:20px">
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:fileUpload
                                 fileUploadListener="#{uploadImagesView.uploadReferenceImage}"
                                 mode="advanced"
-                                update="referenceImage" auto="true"
+                                update="referenceImage maskButton" auto="true"
                                 sizeLimit="100000"
                                 allowTypes="/(\.|\/)(jpe?g|png)$/"/>
                         <p:graphicImage id="referenceImage"
@@ -63,11 +63,11 @@
                 </p:panel>
             </h:panelGrid>
 
-            <!--TODO disable if the images were not uploaded-->
             <p:commandButton value="Enmascarar" ajax="false"
                              id="maskButton"
                              action="#{uploadImagesView.mask}"
-                             disabled="false"
+                             disabled="#{(not uploadImagesView.imageToModifyUploaded)
+                             or (not uploadImagesView.referenceImageUploaded)}"
                              styleClass="ui-priority-primary"/>
 
             <p:growl id="messages" showDetail="true"/>

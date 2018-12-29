@@ -27,6 +27,8 @@ public class UploadImagesView {
     private BufferedImage referenceImage;
 
     private Model model;
+    private boolean imageToModifyUploaded = false;
+    private boolean referenceImageUploaded = false;
 
     @PostConstruct
     public void init() {
@@ -37,10 +39,12 @@ public class UploadImagesView {
 
     public void uploadImageToModify(FileUploadEvent event) {
         imageToModify = getImageFromFileUploadEvent(event);
+        imageToModifyUploaded = imageToModify != null;
     }
 
     public void uploadReferenceImage(FileUploadEvent event) {
         referenceImage = getImageFromFileUploadEvent(event);
+        referenceImageUploaded = referenceImage != null;
     }
 
     private BufferedImage getImageFromFileUploadEvent(FileUploadEvent event) {
@@ -85,4 +89,11 @@ public class UploadImagesView {
         return "masked?faces-redirect=true";
     }
 
+    public boolean getImageToModifyUploaded() {
+        return imageToModifyUploaded;
+    }
+
+    public boolean getReferenceImageUploaded() {
+        return referenceImageUploaded;
+    }
 }
