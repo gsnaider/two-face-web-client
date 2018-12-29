@@ -28,9 +28,6 @@ public class ModelImpl implements Model {
     @Override
     public BufferedImage patchImage(BufferedImage maskedImage, BufferedImage referenceImage) throws TwoFaceException {
         InferenceRequest request = new InferenceRequest();
-
-        //TODO: mask the image.
-        //TODO: resize before calling this method.
         request.addInput(MASKED_IMAGE_INPUT, ImageUtils.bufferedImageToPixels(maskedImage));
         request.addInput(REFERENCE_IMAGE_INPUT, ImageUtils.bufferedImageToPixels(referenceImage));
 
