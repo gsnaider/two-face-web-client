@@ -19,10 +19,15 @@
     <ui:define name="content">
         <h2>Enmascarado</h2>
 
-        <!--TODO add primefaces steps-->
+        <p:steps activeIndex="1">
+            <p:menuitem value="Cargar imágenes"/>
+            <p:menuitem value="Enmascarado"/>
+            <p:menuitem value="Rellenado"/>
+        </p:steps>
+        <br/>
+        <br/>
 
         <h:form>
-            <!--TODO make the panelGrid larger-->
             <h:panelGrid columns="3" cellpadding="5">
                 <p:panel header="Imágen original"
                          style="margin-bottom:20px">

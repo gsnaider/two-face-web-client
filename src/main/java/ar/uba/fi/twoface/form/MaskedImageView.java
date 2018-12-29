@@ -52,7 +52,6 @@ public class MaskedImageView {
         return ImageDisplayUtils.getImageAsStreamedContent(maskedImage);
     }
 
-    // TODO move to own class.
     private static Rectangle getMask() {
         int maskUpperLeftCol = (IMAGE_WIDTH - PATCH_WIDTH) / 2;
         int maskUpperLeftRow = (IMAGE_HEIGHT - PATCH_HEIGHT) / 2;

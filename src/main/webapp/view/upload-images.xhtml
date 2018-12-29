@@ -19,10 +19,18 @@
     <ui:define name="content">
         <h2>Cargar Imágenes</h2>
 
-        <!--TODO add primefaces steps-->
+        <!--TODO make all items of each component (steps, panelGrid)
+        the same size, and make them larger. -->
+        <!--TODO make images larger (see if the above fixes that). -->
 
+        <p:steps activeIndex="0">
+            <p:menuitem value="Cargar imágenes"/>
+            <p:menuitem value="Enmascarado"/>
+            <p:menuitem value="Rellenado"/>
+        </p:steps>
+        <br/>
+        <br/>
         <h:form>
-            <!--TODO make the panelGrid larger-->
             <h:panelGrid columns="2" cellpadding="5">
                 <p:panel header="Imágen a modificar"
                             style="margin-bottom:20px">
@@ -66,6 +74,7 @@
 
         </h:form>
 
+        <!--TODO close the session if the user goes back. -->
         <h3>
             <a href="../index.xhtml">Volver</a>
         </h3>
