@@ -5,6 +5,11 @@
 <web-app>
   <display-name>Two-Face Web Client</display-name>
 
+  <!--URL for connecting to remote backend server-->
+  <context-param>
+    <param-name>backend</param-name>
+    <param-value>http://localhost:8501/v1/models</param-value>
+  </context-param>
 
   <filter>
     <filter-name>primeFacesFileUploadFilter</filter-name>

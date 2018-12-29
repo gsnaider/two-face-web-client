@@ -1,9 +1,8 @@
 package ar.uba.fi.twoface.form;
 
-import ar.uba.fi.twoface.model.ImageUtils;
+import ar.uba.fi.twoface.model.Model;
 import org.pmw.tinylog.Logger;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
@@ -15,7 +14,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 @ManagedBean(name = "uploadImagesView")
@@ -29,8 +27,11 @@ public class UploadImagesView {
     private BufferedImage imageToModify;
     private BufferedImage referenceImage;
 
+    private Model model;
+
     @PostConstruct
     public void init() {
+        model = ModelProvider.getModel();
         imageToModify = imagePlaceholder();
         referenceImage = imagePlaceholder();
     }
@@ -48,11 +49,11 @@ public class UploadImagesView {
         BufferedImage image = null;
         try {
             image = ImageIO.read(new ByteArrayInputStream(contents));
-            image = ImageUtils.resize(image, IMAGE_WIDTH, IMAGE_HEIGTH);
+            image = model.resize(image, IMAGE_WIDTH, IMAGE_HEIGTH);
             FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (IOException e) {
-            Logger.warn("Error uploading image", e);
+            Logger.error("Error uploading image", e);
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error uploading image.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -60,29 +61,11 @@ public class UploadImagesView {
     }
 
     public StreamedContent getImageToModifyForDisplay() {
-        return getImageAsStreamedContent(imageToModify);
+        return ImageDisplayUtils.getImageAsStreamedContent(imageToModify);
     }
 
     public StreamedContent getReferenceImageForDisplay() {
-        return getImageAsStreamedContent(referenceImage);
-    }
-
-    public BufferedImage getImageToModify() {
-        return imageToModify;
-    }
-
-    public String mask() {
-        return "masked?faces-redirect=true";
-    }
-
-    StreamedContent getImageAsStreamedContent(BufferedImage image) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        try {
-            ImageIO.write(image, "jpg", outputStream);
-        } catch (IOException e) {
-            Logger.error("Error generating image for display.", e);
-        }
-        return new DefaultStreamedContent(new ByteArrayInputStream(outputStream.toByteArray()), "image/jpg");
+        return ImageDisplayUtils.getImageAsStreamedContent(referenceImage);
     }
 
     private BufferedImage imagePlaceholder() {
@@ -95,6 +78,12 @@ public class UploadImagesView {
         graph.drawRect(0, 0, placeholder.getWidth() - 1, placeholder.getHeight() - 1);
         graph.dispose();
         return placeholder;
+    }
+
+    public String mask() {
+        SessionManager.put(SessionManager.ORIGINAL_IMAGE_KEY, imageToModify);
+        SessionManager.put(SessionManager.REFERENCE_IMAGE_KEY, referenceImage);
+        return "masked?faces-redirect=true";
     }
 
 }

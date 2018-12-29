@@ -1,10 +1,11 @@
 package ar.uba.fi.twoface.form;
 
 import ar.uba.fi.twoface.model.ImageUtils;
+import ar.uba.fi.twoface.model.Model;
 import org.primefaces.model.StreamedContent;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,22 +19,37 @@ public class MaskedImageView {
     private static final int PATCH_WIDTH = 32;
     private static final int PATCH_HEIGHT = 32;
 
-    @ManagedProperty(value = "#{uploadImagesView}")
-    private UploadImagesView uploadImagesView;
+    private BufferedImage maskedImage;
+
+    private Model model;
+
+    @PostConstruct
+    public void init() {
+        model = ModelProvider.getModel();
+    }
 
     public StreamedContent getOriginalImageForDisplay() {
-        return uploadImagesView.getImageToModifyForDisplay();
+        return ImageDisplayUtils
+                .getImageAsStreamedContent(
+                        (BufferedImage) SessionManager.get(SessionManager.ORIGINAL_IMAGE_KEY));
     }
 
     public StreamedContent getReferenceImageForDisplay() {
-        return uploadImagesView.getReferenceImageForDisplay();
+        return ImageDisplayUtils
+                .getImageAsStreamedContent(
+                        (BufferedImage) SessionManager.get(SessionManager.REFERENCE_IMAGE_KEY));
     }
 
+    // TODO see if the mask should be done in another place (not the get method for display).
     public StreamedContent getMaskedImageForDisplay() {
-        // TODO maybe make the image copy within ImageUtils.maskImage.
-        BufferedImage imageToMask = ImageUtils.copy(uploadImagesView.getImageToModify());
-        ImageUtils.maskImage(imageToMask, getMask());
-        return uploadImagesView.getImageAsStreamedContent(imageToMask);
+        BufferedImage originalImage =
+                (BufferedImage) SessionManager.get(SessionManager.ORIGINAL_IMAGE_KEY);
+
+        // TODO maybe make the image copy within Model#maskImage.
+        maskedImage = ImageUtils.copy(originalImage);
+        model.maskImage(maskedImage, getMask());
+
+        return ImageDisplayUtils.getImageAsStreamedContent(maskedImage);
     }
 
     // TODO move to own class.
@@ -43,7 +59,8 @@ public class MaskedImageView {
         return new Rectangle(maskUpperLeftCol, maskUpperLeftRow, PATCH_WIDTH, PATCH_HEIGHT);
     }
 
-    public void setUploadImagesView(UploadImagesView uploadImagesView) {
-        this.uploadImagesView = uploadImagesView;
+    public String patch() {
+        SessionManager.put(SessionManager.MASKED_IMAGE_KEY, maskedImage);
+        return "patched?faces-redirect=true";
     }
 }

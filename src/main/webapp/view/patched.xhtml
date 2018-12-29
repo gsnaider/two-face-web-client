@@ -17,7 +17,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <h2>Enmascarado</h2>
+        <h2>Rellenado</h2>
 
         <!--TODO add primefaces steps-->
 
@@ -26,28 +26,24 @@
                 <p:panel header="Imágen original"
                          style="margin-bottom:20px">
                     <p:graphicImage id="originalImage"
-                                    value="#{maskedImageView.originalImageForDisplay}"
+                                    value="#{patchedImageView.originalImageForDisplay}"
                                     cache="false"/>
                 </p:panel>
-                <p:panel header="Imágen enmascarada"
+                <p:panel header="Imágen rellenada"
                          style="margin-bottom:20px">
                     <p:graphicImage id="maskedImage"
-                                    value="#{maskedImageView.maskedImageForDisplay}"
+                                    value="#{patchedImageView.patchedImageForDisplay}"
                                     cache="false"/>
                 </p:panel>
                 <p:panel header="Imágen de referencia"
                          style="margin-bottom:20px">
                     <p:graphicImage id="referenceImage"
-                                    value="#{maskedImageView.referenceImageForDisplay}"
+                                    value="#{patchedImageView.referenceImageForDisplay}"
                                     cache="false"/>
                 </p:panel>
             </h:panelGrid>
 
-            <p:commandButton value="Rellenar" ajax="false"
-                             id="patchButton"
-                             action="#{maskedImageView.patch}"
-                             disabled="false"
-                             styleClass="ui-priority-primary"/>
+            <p:growl id="messages" showDetail="true"/>
 
         </h:form>
 
