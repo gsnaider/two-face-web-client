@@ -26,24 +26,33 @@
         <br/>
 
         <h:form>
-            <h:panelGrid columns="3" cellpadding="5">
+            <h:panelGrid columns="3" cellpadding="25" width="60%">
                 <p:panel header="Imágen original"
-                         style="margin-bottom:20px">
+                         style="margin-bottom:20px;text-align: center"
+                         styleClass="customTitleBar">
                     <p:graphicImage id="originalImage"
                                     value="#{patchedImageView.originalImageForDisplay}"
-                                    cache="false"/>
+                                    cache="false"
+                                    width="300"
+                                    height="300"/>
                 </p:panel>
                 <p:panel header="Imágen rellenada"
-                         style="margin-bottom:20px">
+                         style="margin-bottom:20px;text-align: center"
+                         styleClass="customTitleBar">
                     <p:graphicImage id="maskedImage"
                                     value="#{patchedImageView.patchedImageForDisplay}"
-                                    cache="false"/>
+                                    cache="false"
+                                    width="300"
+                                    height="300"/>
                 </p:panel>
                 <p:panel header="Imágen de referencia"
-                         style="margin-bottom:20px">
+                         style="margin-bottom:20px;text-align: center"
+                         styleClass="customTitleBar">
                     <p:graphicImage id="referenceImage"
                                     value="#{patchedImageView.referenceImageForDisplay}"
-                                    cache="false"/>
+                                    cache="false"
+                                    width="300"
+                                    height="300"/>
                 </p:panel>
             </h:panelGrid>
 
