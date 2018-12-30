@@ -6,51 +6,45 @@ import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static ar.uba.fi.twoface.model.Constants.IMAGE_HEIGHT;
-import static ar.uba.fi.twoface.model.Constants.IMAGE_WIDTH;
-import static ar.uba.fi.twoface.model.Constants.PATCH_HEIGHT;
-import static ar.uba.fi.twoface.model.Constants.PATCH_WIDTH;
+import static ar.uba.fi.twoface.model.Constants.*;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class MaskedImageView {
 
-    private BufferedImage maskedImage;
-
-    private Model model;
+    @ManagedProperty(value = "#{sessionBean}")
+    private SessionBean sessionBean;
 
     @PostConstruct
     public void init() {
-        model = ModelProvider.getModel();
+        Model model = ModelProvider.getModel();
+
+        BufferedImage originalImage = sessionBean.getOriginalImage();
+        BufferedImage maskedImage = ImageUtils.copy(originalImage);
+        model.maskImage(maskedImage, getMask());
+
+        sessionBean.setMaskedImage(maskedImage);
     }
 
     public StreamedContent getOriginalImageForDisplay() {
         return ImageDisplayUtils
-                .getImageAsStreamedContent(
-                        (BufferedImage) SessionManager.get(SessionManager.ORIGINAL_IMAGE_KEY));
+                .getImageAsStreamedContent(sessionBean.getOriginalImage());
     }
 
     public StreamedContent getReferenceImageForDisplay() {
         return ImageDisplayUtils
-                .getImageAsStreamedContent(
-                        (BufferedImage) SessionManager.get(SessionManager.REFERENCE_IMAGE_KEY));
+                .getImageAsStreamedContent(sessionBean.getReferenceImage());
     }
 
     // TODO see if the mask should be done in another place (not the get method for display).
     public StreamedContent getMaskedImageForDisplay() {
-        BufferedImage originalImage =
-                (BufferedImage) SessionManager.get(SessionManager.ORIGINAL_IMAGE_KEY);
-
-        // TODO maybe make the image copy within Model#maskImage.
-        maskedImage = ImageUtils.copy(originalImage);
-        model.maskImage(maskedImage, getMask());
-
-        return ImageDisplayUtils.getImageAsStreamedContent(maskedImage);
+        return ImageDisplayUtils
+                .getImageAsStreamedContent(sessionBean.getMaskedImage());
     }
 
     private static Rectangle getMask() {
@@ -60,11 +54,14 @@ public class MaskedImageView {
     }
 
     public String next() {
-        SessionManager.put(SessionManager.MASKED_IMAGE_KEY, maskedImage);
         return "patched?faces-redirect=true";
     }
 
     public String back() {
         return "upload-images?faces-redirect=true";
+    }
+
+    public void setSessionBean(SessionBean sessionBean) {
+        this.sessionBean = sessionBean;
     }
 }

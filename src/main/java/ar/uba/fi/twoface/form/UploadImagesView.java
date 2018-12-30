@@ -8,6 +8,7 @@ import org.primefaces.model.StreamedContent;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
@@ -23,27 +24,30 @@ import static ar.uba.fi.twoface.model.Constants.IMAGE_WIDTH;
 @SessionScoped
 public class UploadImagesView {
 
-    private BufferedImage imageToModify;
-    private BufferedImage referenceImage;
-
     private Model model;
     private boolean imageToModifyUploaded = false;
     private boolean referenceImageUploaded = false;
 
+    @ManagedProperty(value = "#{sessionBean}")
+    private SessionBean sessionBean;
+
     @PostConstruct
     public void init() {
         model = ModelProvider.getModel();
-        imageToModify = imagePlaceholder();
-        referenceImage = imagePlaceholder();
+        sessionBean.setOriginalImage(imagePlaceholder());
+        sessionBean.setReferenceImage(imagePlaceholder());
     }
 
     public void uploadImageToModify(FileUploadEvent event) {
-        imageToModify = getImageFromFileUploadEvent(event);
+        BufferedImage imageToModify = getImageFromFileUploadEvent(event);
+        sessionBean.setOriginalImage(imageToModify);
         imageToModifyUploaded = imageToModify != null;
+
     }
 
     public void uploadReferenceImage(FileUploadEvent event) {
-        referenceImage = getImageFromFileUploadEvent(event);
+        BufferedImage referenceImage = getImageFromFileUploadEvent(event);
+        sessionBean.setReferenceImage(referenceImage);
         referenceImageUploaded = referenceImage != null;
     }
 
@@ -64,11 +68,11 @@ public class UploadImagesView {
     }
 
     public StreamedContent getImageToModifyForDisplay() {
-        return ImageDisplayUtils.getImageAsStreamedContent(imageToModify);
+        return ImageDisplayUtils.getImageAsStreamedContent(sessionBean.getOriginalImage());
     }
 
     public StreamedContent getReferenceImageForDisplay() {
-        return ImageDisplayUtils.getImageAsStreamedContent(referenceImage);
+        return ImageDisplayUtils.getImageAsStreamedContent(sessionBean.getReferenceImage());
     }
 
     private BufferedImage imagePlaceholder() {
@@ -84,8 +88,6 @@ public class UploadImagesView {
     }
 
     public String next() {
-        SessionManager.put(SessionManager.ORIGINAL_IMAGE_KEY, imageToModify);
-        SessionManager.put(SessionManager.REFERENCE_IMAGE_KEY, referenceImage);
         return "masked?faces-redirect=true";
     }
 
@@ -100,5 +102,9 @@ public class UploadImagesView {
 
     public boolean getReferenceImageUploaded() {
         return referenceImageUploaded;
+    }
+
+    public void setSessionBean(SessionBean sessionBean) {
+        this.sessionBean = sessionBean;
     }
 }

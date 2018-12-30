@@ -8,6 +8,7 @@ import org.primefaces.model.StreamedContent;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import java.awt.image.BufferedImage;
@@ -16,21 +17,19 @@ import java.awt.image.BufferedImage;
 @RequestScoped
 public class PatchedImageView {
 
-    private BufferedImage originalImage;
-    private BufferedImage patchedImage;
-    private BufferedImage referenceImage;
+    @ManagedProperty(value = "#{sessionBean}")
+    private SessionBean sessionBean;
 
     @PostConstruct
     public void init() {
-
         Model model = ModelProvider.getModel();
 
-        originalImage = (BufferedImage) SessionManager.get(SessionManager.ORIGINAL_IMAGE_KEY);
-        referenceImage = (BufferedImage) SessionManager.get(SessionManager.REFERENCE_IMAGE_KEY);
-        BufferedImage maskedImage = (BufferedImage) SessionManager.get(SessionManager.MASKED_IMAGE_KEY);
+        BufferedImage referenceImage = sessionBean.getReferenceImage();
+        BufferedImage maskedImage = sessionBean.getMaskedImage();
 
         try {
-            patchedImage =model.patchImage(maskedImage, referenceImage);
+            BufferedImage patchedImage = model.patchImage(maskedImage, referenceImage);
+            sessionBean.setPatchedImage(patchedImage);
         } catch (TwoFaceException e) {
             Logger.error("Error patching image", e);
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error patching image.");
@@ -40,15 +39,18 @@ public class PatchedImageView {
     }
 
     public StreamedContent getOriginalImageForDisplay() {
-        return ImageDisplayUtils.getImageAsStreamedContent(originalImage);
+        return ImageDisplayUtils
+                .getImageAsStreamedContent(sessionBean.getOriginalImage());
     }
 
     public StreamedContent getReferenceImageForDisplay() {
-        return ImageDisplayUtils.getImageAsStreamedContent(referenceImage);
+        return ImageDisplayUtils
+                .getImageAsStreamedContent(sessionBean.getReferenceImage());
     }
 
     public StreamedContent getPatchedImageForDisplay() {
-        return ImageDisplayUtils.getImageAsStreamedContent(patchedImage);
+        return ImageDisplayUtils
+                .getImageAsStreamedContent(sessionBean.getPatchedImage());
     }
 
     public String mainMenu() {
@@ -60,4 +62,7 @@ public class PatchedImageView {
         return "masked?faces-redirect=true";
     }
 
+    public void setSessionBean(SessionBean sessionBean) {
+        this.sessionBean = sessionBean;
+    }
 }
