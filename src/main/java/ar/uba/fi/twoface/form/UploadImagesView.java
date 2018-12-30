@@ -83,10 +83,15 @@ public class UploadImagesView {
         return placeholder;
     }
 
-    public String mask() {
+    public String next() {
         SessionManager.put(SessionManager.ORIGINAL_IMAGE_KEY, imageToModify);
         SessionManager.put(SessionManager.REFERENCE_IMAGE_KEY, referenceImage);
         return "masked?faces-redirect=true";
+    }
+
+    public String back() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "../index.xhtml?faces-redirect=true";
     }
 
     public boolean getImageToModifyUploaded() {

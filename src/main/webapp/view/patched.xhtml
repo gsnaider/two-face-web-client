@@ -48,9 +48,10 @@
             </h:panelGrid>
 
             <h:panelGrid columns="2" cellpadding="5">
-                <h3>
-                    <a href="masked.xhtml">Volver</a>
-                </h3>
+                <p:commandButton value="Volver" ajax="false"
+                                 id="backButton"
+                                 action="#{patchedImageView.back}"
+                                 styleClass="ui-priority-primary"/>
                 <p:commandButton value="Menu principal" ajax="false"
                                  id="mainMenuButton"
                                  action="#{patchedImageView.mainMenu}"

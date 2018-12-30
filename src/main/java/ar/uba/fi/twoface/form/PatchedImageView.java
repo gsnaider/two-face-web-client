@@ -56,4 +56,8 @@ public class PatchedImageView {
         return "../index.xhtml?faces-redirect=true";
     }
 
+    public String back() {
+        return "masked?faces-redirect=true";
+    }
+
 }

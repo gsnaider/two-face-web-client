@@ -36,8 +36,8 @@
                         <p:fileUpload
                                 fileUploadListener="#{uploadImagesView.uploadImageToModify}"
                                 mode="advanced"
-                                update="imageToModify maskButton" auto="true"
-                                sizeLimit="100000"
+                                update="imageToModify nextButton" auto="true"
+                                sizeLimit="10000000"
                                 allowTypes="/(\.|\/)(jpe?g|png)$/"/>
                         <p:graphicImage id="imageToModify"
                                         value="#{uploadImagesView.imageToModifyForDisplay}"
@@ -51,8 +51,8 @@
                         <p:fileUpload
                                 fileUploadListener="#{uploadImagesView.uploadReferenceImage}"
                                 mode="advanced"
-                                update="referenceImage maskButton" auto="true"
-                                sizeLimit="100000"
+                                update="referenceImage nextButton" auto="true"
+                                sizeLimit="10000000"
                                 allowTypes="/(\.|\/)(jpe?g|png)$/"/>
                         <p:graphicImage id="referenceImage"
                                         value="#{uploadImagesView.referenceImageForDisplay}"
@@ -63,13 +63,14 @@
 
 
             <h:panelGrid columns="2" cellpadding="5">
-                <h3>
-                    <a href="../index.xhtml">Volver</a>
-                </h3>
+                <p:commandButton value="Volver" ajax="false"
+                                 id="backButton"
+                                 action="#{uploadImagesView.back}"
+                                 styleClass="ui-priority-primary"/>
 
                 <p:commandButton value="Siguiente" ajax="false"
-                                 id="maskButton"
-                                 action="#{uploadImagesView.mask}"
+                                 id="nextButton"
+                                 action="#{uploadImagesView.next}"
                                  disabled="#{(not uploadImagesView.imageToModifyUploaded)
                                  or (not uploadImagesView.referenceImageUploaded)}"
                                  styleClass="ui-priority-primary"/>

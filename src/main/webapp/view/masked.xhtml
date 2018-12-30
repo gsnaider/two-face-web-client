@@ -48,12 +48,13 @@
             </h:panelGrid>
 
             <h:panelGrid columns="2" cellpadding="5">
-                <h3>
-                    <a href="upload-images.xhtml">Volver</a>
-                </h3>
+                <p:commandButton value="Volver" ajax="false"
+                                 id="backButton"
+                                 action="#{maskedImageView.back}"
+                                 styleClass="ui-priority-primary"/>
                 <p:commandButton value="Siguiente" ajax="false"
-                                 id="patchButton"
-                                 action="#{maskedImageView.patch}"
+                                 id="nextButton"
+                                 action="#{maskedImageView.next}"
                                  disabled="false"
                                  styleClass="ui-priority-primary"/>
             </h:panelGrid>

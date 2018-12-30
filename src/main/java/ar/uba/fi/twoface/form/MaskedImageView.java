@@ -7,6 +7,7 @@ import org.primefaces.model.StreamedContent;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -58,8 +59,12 @@ public class MaskedImageView {
         return new Rectangle(maskUpperLeftCol, maskUpperLeftRow, PATCH_WIDTH, PATCH_HEIGHT);
     }
 
-    public String patch() {
+    public String next() {
         SessionManager.put(SessionManager.MASKED_IMAGE_KEY, maskedImage);
         return "patched?faces-redirect=true";
+    }
+
+    public String back() {
+        return "upload-images?faces-redirect=true";
     }
 }
