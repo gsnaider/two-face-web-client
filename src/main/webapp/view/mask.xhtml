@@ -24,6 +24,7 @@
         <br/>
 
         <h:form>
+            <p:growl id="growl" showDetail="true" sticky="true" />
             <p:panel header="Imágen original"
                      style="margin-bottom:20px;text-align: center"
                      styleClass="customTitleBar">
@@ -32,8 +33,11 @@
                                 cache="false"
                                 width="300"
                                 height="300"/>
-                <pe:imageAreaSelect id="areaSelect" for="originalImage"
-                                    handles="true"/>
+
+                <!--https://www.primefaces.org/showcase-ext/sections/imageAreaSelect/basicSelection.jsf-->
+                <pe:imageAreaSelect id="areaSelect" for="originalImage" handles="true">
+                    <p:ajax event="selectEnd" listener="#{maskView.selectEndListener}" update="growl"/>
+                </pe:imageAreaSelect>
             </p:panel>
         </h:form>
 
