@@ -24,7 +24,6 @@ import static ar.uba.fi.twoface.model.Constants.IMAGE_WIDTH;
 @SessionScoped
 public class UploadImagesView {
 
-    private Model model;
     private boolean imageToModifyUploaded = false;
     private boolean referenceImageUploaded = false;
 
@@ -33,7 +32,6 @@ public class UploadImagesView {
 
     @PostConstruct
     public void init() {
-        model = ModelProvider.getModel();
         sessionBean.setOriginalImage(imagePlaceholder());
         sessionBean.setReferenceImage(imagePlaceholder());
     }

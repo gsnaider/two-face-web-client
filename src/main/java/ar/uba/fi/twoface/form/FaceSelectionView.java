@@ -8,10 +8,7 @@ import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -40,7 +37,10 @@ public class FaceSelectionView {
     @PostConstruct
     public void init() {
         model = ModelProvider.getModel();
+        setDefaultValues();
+    }
 
+    private void setDefaultValues() {
         originalX = 0;
         originalY = 0;
         originalWidth = sessionBean.getOriginalImage().getWidth();
@@ -123,8 +123,7 @@ public class FaceSelectionView {
         sessionBean.setCroppedOriginalImage(croppedOriginalImage);
         sessionBean.setCroppedReferenceImage(croppedReferenceImage);
 
-        // TODO before redirecting, clear up the values of X, Y, width, height,
-        // so that if the user goes back, the selection is cleared.
+        setDefaultValues();
         return "masked?faces-redirect=true";
     }
 
