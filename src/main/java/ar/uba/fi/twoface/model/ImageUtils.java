@@ -8,6 +8,10 @@ public final class ImageUtils {
     private ImageUtils() {
     }
 
+
+    // TODO if we end up using the model that crops the face, change this to
+    // resize with crop or pad instead of scaling.
+    // TODO After applying the patch, MAYBE we could reconstruct the original image.
     public static BufferedImage resize(BufferedImage image, int newWidth, int newHeight) {
         Image tmp = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
         BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
