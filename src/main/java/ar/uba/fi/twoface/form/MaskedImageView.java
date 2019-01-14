@@ -24,7 +24,7 @@ public class MaskedImageView {
     public void init() {
         Model model = ModelProvider.getModel();
 
-        BufferedImage originalImage = sessionBean.getOriginalImage();
+        BufferedImage originalImage = sessionBean.getCroppedOriginalImage();
         BufferedImage maskedImage = ImageUtils.copy(originalImage);
         model.maskImage(maskedImage, getMask());
 
@@ -33,12 +33,12 @@ public class MaskedImageView {
 
     public StreamedContent getOriginalImageForDisplay() {
         return ImageDisplayUtils
-                .getImageAsStreamedContent(sessionBean.getOriginalImage());
+                .getImageAsStreamedContent(sessionBean.getCroppedOriginalImage());
     }
 
     public StreamedContent getReferenceImageForDisplay() {
         return ImageDisplayUtils
-                .getImageAsStreamedContent(sessionBean.getReferenceImage());
+                .getImageAsStreamedContent(sessionBean.getCroppedReferenceImage());
     }
 
     // TODO see if the mask should be done in another place (not the get method for display).
@@ -58,7 +58,7 @@ public class MaskedImageView {
     }
 
     public String back() {
-        return "upload-images?faces-redirect=true";
+        return "face-selection?faces-redirect=true";
     }
 
     public void setSessionBean(SessionBean sessionBean) {

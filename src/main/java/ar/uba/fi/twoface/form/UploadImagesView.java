@@ -56,7 +56,6 @@ public class UploadImagesView {
         BufferedImage image = null;
         try {
             image = ImageIO.read(new ByteArrayInputStream(contents));
-            image = model.resize(image, IMAGE_WIDTH, IMAGE_HEIGHT);
             FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (IOException e) {
@@ -88,7 +87,7 @@ public class UploadImagesView {
     }
 
     public String next() {
-        return "masked?faces-redirect=true";
+        return "face-selection?faces-redirect=true";
     }
 
     public String back() {

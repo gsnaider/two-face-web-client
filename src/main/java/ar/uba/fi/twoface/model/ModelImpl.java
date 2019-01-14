@@ -21,6 +21,11 @@ public class ModelImpl implements Model {
     }
 
     @Override
+    public BufferedImage crop(BufferedImage image, int x, int y, int width, int height) {
+        return ImageUtils.crop(image, x, y, width, height);
+    }
+
+    @Override
     public BufferedImage resize(BufferedImage image, int newWidth, int newHeight) {
         return ImageUtils.resize(image, newWidth, newHeight);
     }

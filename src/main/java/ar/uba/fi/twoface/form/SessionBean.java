@@ -10,6 +10,8 @@ public class SessionBean {
 
     private BufferedImage originalImage;
     private BufferedImage referenceImage;
+    private BufferedImage croppedOriginalImage;
+    private BufferedImage croppedReferenceImage;
     private BufferedImage maskedImage;
     private BufferedImage patchedImage;
 
@@ -27,6 +29,22 @@ public class SessionBean {
 
     public void setReferenceImage(BufferedImage referenceImage) {
         this.referenceImage = referenceImage;
+    }
+
+    public BufferedImage getCroppedOriginalImage() {
+        return croppedOriginalImage;
+    }
+
+    public void setCroppedOriginalImage(BufferedImage croppedOriginalImage) {
+        this.croppedOriginalImage = croppedOriginalImage;
+    }
+
+    public BufferedImage getCroppedReferenceImage() {
+        return croppedReferenceImage;
+    }
+
+    public void setCroppedReferenceImage(BufferedImage croppedReferenceImage) {
+        this.croppedReferenceImage = croppedReferenceImage;
     }
 
     public BufferedImage getMaskedImage() {

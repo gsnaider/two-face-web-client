@@ -24,7 +24,7 @@ public class PatchedImageView {
     public void init() {
         Model model = ModelProvider.getModel();
 
-        BufferedImage referenceImage = sessionBean.getReferenceImage();
+        BufferedImage referenceImage = sessionBean.getCroppedReferenceImage();
         BufferedImage maskedImage = sessionBean.getMaskedImage();
 
         try {
@@ -40,12 +40,12 @@ public class PatchedImageView {
 
     public StreamedContent getOriginalImageForDisplay() {
         return ImageDisplayUtils
-                .getImageAsStreamedContent(sessionBean.getOriginalImage());
+                .getImageAsStreamedContent(sessionBean.getCroppedOriginalImage());
     }
 
     public StreamedContent getReferenceImageForDisplay() {
         return ImageDisplayUtils
-                .getImageAsStreamedContent(sessionBean.getReferenceImage());
+                .getImageAsStreamedContent(sessionBean.getCroppedReferenceImage());
     }
 
     public StreamedContent getPatchedImageForDisplay() {

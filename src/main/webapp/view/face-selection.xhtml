@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
 
@@ -18,58 +19,75 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:steps activeIndex="2">
+        <p:steps activeIndex="1">
             <p:menuitem value="Cargar imágenes"/>
             <p:menuitem value="Selección de cara"/>
             <p:menuitem value="Enmascarado"/>
             <p:menuitem value="Rellenado"/>
         </p:steps>
-        <br/>
-        <br/>
 
         <h:form>
-            <h:panelGrid columns="3" cellpadding="25" width="60%">
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+
+            <font size="4">
+                <br/>
+                Aquí puede seleccionar la región donde se encuentra la cara en cada imágen.
+                <br/>
+                Si no desea realizar ninguna selección, puede continuar al siguiente paso.
+                <br/>
+                <br/>
+            </font>
+
+            <h:panelGrid columns="2" cellpadding="25" width="60%">
                 <p:panel header="Imágen original"
                          style="margin-bottom:20px;text-align: center"
                          styleClass="customTitleBar">
                     <p:graphicImage id="originalImage"
-                                    value="#{maskedImageView.originalImageForDisplay}"
+                                    value="#{faceSelectionView.originalImageForDisplay}"
                                     cache="false"
                                     width="300"
                                     height="300"/>
+                    <pe:imageAreaSelect id="originalAreaSelect"
+                                        for="originalImage" handles="true"
+                                        imageWidth="#{sessionBean.originalImage.width}"
+                                        imageHeight="#{sessionBean.originalImage.height}">
+                        <p:ajax event="selectEnd"
+                                listener="#{faceSelectionView.originalSelectListener}"
+                                update="growl"/>
+                    </pe:imageAreaSelect>
                 </p:panel>
-                <p:panel header="Imágen enmascarada"
-                         style="margin-bottom:20px;text-align: center"
-                         styleClass="customTitleBar">
-                    <p:graphicImage id="maskedImage"
-                                    value="#{maskedImageView.maskedImageForDisplay}"
-                                    cache="false"
-                                    width="300"
-                                    height="300"/>
-                </p:panel>
+
+
                 <p:panel header="Imágen de referencia"
                          style="margin-bottom:20px;text-align: center"
                          styleClass="customTitleBar">
                     <p:graphicImage id="referenceImage"
-                                    value="#{maskedImageView.referenceImageForDisplay}"
+                                    value="#{faceSelectionView.referenceImageForDisplay}"
                                     cache="false"
                                     width="300"
                                     height="300"/>
+                    <pe:imageAreaSelect id="referenceAreaSelect"
+                                        for="referenceImage" handles="true"
+                                        imageWidth="#{sessionBean.referenceImage.width}"
+                                        imageHeight="#{sessionBean.referenceImage.height}">
+                        <p:ajax event="selectEnd"
+                                listener="#{faceSelectionView.referenceSelectListener}"
+                                update="growl"/>
+                    </pe:imageAreaSelect>
                 </p:panel>
             </h:panelGrid>
 
             <h:panelGrid columns="2" cellpadding="5">
                 <p:commandButton value="Volver" ajax="false"
                                  id="backButton"
-                                 action="#{maskedImageView.back}"
+                                 action="#{faceSelectionView.back}"
                                  styleClass="ui-priority-primary"/>
                 <p:commandButton value="Siguiente" ajax="false"
                                  id="nextButton"
-                                 action="#{maskedImageView.next}"
+                                 action="#{faceSelectionView.next}"
                                  disabled="false"
                                  styleClass="ui-priority-primary"/>
             </h:panelGrid>
-
         </h:form>
 
     </ui:define>

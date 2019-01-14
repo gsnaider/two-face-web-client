@@ -8,7 +8,6 @@ public final class ImageUtils {
     private ImageUtils() {
     }
 
-
     // TODO if we end up using the model that crops the face, change this to
     // resize with crop or pad instead of scaling.
     // TODO After applying the patch, MAYBE we could reconstruct the original image.
@@ -22,6 +21,22 @@ public final class ImageUtils {
 
         return resizedImage;
     }
+
+    /**
+     * Returns a {@link BufferedImage} which is the result of cropping the given
+     * {@code image} on a rectangular region.
+     *
+     * @param x      the X coordinate of the upper-left corner of the specified
+     *               rectangular region
+     * @param y      the Y coordinate of the upper-left corner of the specified
+     *               rectangular region
+     * @param width  the width of the specified rectangular region
+     * @param height the height of the specified rectangular region
+     */
+    public static BufferedImage crop(BufferedImage image, int x, int y, int width, int height) {
+        return image.getSubimage(x, y, width, height);
+    }
+
 
     public static double[][][] bufferedImageToPixels(BufferedImage image) {
         int width = image.getWidth();
