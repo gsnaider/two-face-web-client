@@ -32,10 +32,7 @@
             <font size="4">
                 <br/>
                 <br/>
-                Aquí puede seleccionar la región donde se encuentra la cara en cada imágen.
-                <br/>
-                Si no desea realizar ninguna selección, puede continuar al siguiente paso.
-                <br/>
+                Seleccione en cada imágen la región donde se encuentra la cara.
                 <br/>
             </font>
 
@@ -56,16 +53,13 @@
                     <pe:imageAreaSelect id="originalAreaSelect"
                                         for="originalImage" handles="true"
                                         aspectRatio="1:1"
-                                        minHeight="50"
-                                        minWidth="50"
                                         imageWidth="#{sessionBean.originalImage.width}"
                                         imageHeight="#{sessionBean.originalImage.height}">
                         <p:ajax event="selectEnd"
                                 listener="#{faceSelectionView.originalSelectListener}"
-                                update="growl"/>
+                                update="growl nextButton"/>
                     </pe:imageAreaSelect>
                 </p:panel>
-
 
                 <p:panel header="Imágen de referencia"
                          style="margin-bottom:20px;text-align: center"
@@ -78,13 +72,11 @@
                     <pe:imageAreaSelect id="referenceAreaSelect"
                                         for="referenceImage" handles="true"
                                         aspectRatio="1:1"
-                                        minHeight="50"
-                                        minWidth="50"
                                         imageWidth="#{sessionBean.referenceImage.width}"
                                         imageHeight="#{sessionBean.referenceImage.height}">
                         <p:ajax event="selectEnd"
                                 listener="#{faceSelectionView.referenceSelectListener}"
-                                update="growl"/>
+                                update="growl nextButton"/>
                     </pe:imageAreaSelect>
                 </p:panel>
             </h:panelGrid>
@@ -97,7 +89,8 @@
                 <p:commandButton value="Siguiente" ajax="false"
                                  id="nextButton"
                                  action="#{faceSelectionView.next}"
-                                 disabled="false"
+                                 disabled="#{(not faceSelectionView.originalSelected)
+                                 or (not faceSelectionView.referenceSelected)}"
                                  styleClass="ui-priority-primary"/>
             </h:panelGrid>
         </h:form>

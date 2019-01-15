@@ -1,6 +1,5 @@
 package ar.uba.fi.twoface.form;
 
-import ar.uba.fi.twoface.model.ImageUtils;
 import ar.uba.fi.twoface.model.Model;
 import org.pmw.tinylog.Logger;
 import org.primefaces.extensions.event.ImageAreaSelectEvent;
@@ -8,12 +7,14 @@ import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.*;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static ar.uba.fi.twoface.model.Constants.*;
+import static ar.uba.fi.twoface.model.Constants.IMAGE_HEIGHT;
+import static ar.uba.fi.twoface.model.Constants.IMAGE_WIDTH;
 
 @ManagedBean
 @SessionScoped
@@ -36,6 +37,9 @@ public class FaceSelectionView {
     private int referenceWidth;
     private int referenceHeight;
 
+    private boolean originalSelected;
+    private boolean referenceSelected;
+
     @PostConstruct
     public void init() {
         model = ModelProvider.getModel();
@@ -43,39 +47,36 @@ public class FaceSelectionView {
     }
 
     private void setDefaultValues() {
-        originalX = 0;
-        originalY = 0;
-        originalWidth = sessionBean.getOriginalImage().getWidth();
-        originalHeight = sessionBean.getOriginalImage().getHeight();
-
-        referenceX = 0;
-        referenceY = 0;
-        referenceWidth = sessionBean.getReferenceImage().getWidth();
-        referenceHeight = sessionBean.getReferenceImage().getHeight();
+        originalSelected = false;
+        referenceSelected = false;
     }
 
     public void originalSelectListener(final ImageAreaSelectEvent e) {
         if (e.getWidth() < MIN_SELECTION_SIZE || e.getHeight() < MIN_SELECTION_SIZE) {
             showSmallRegionErrorMessage();
-            return;
+            originalSelected = false;
+        } else {
+            originalX = e.getX1();
+            originalY = e.getY1();
+            originalWidth = e.getWidth();
+            originalHeight = e.getHeight();
+            showSelectionMessage(e);
+            originalSelected = true;
         }
-        originalX = e.getX1();
-        originalY = e.getY1();
-        originalWidth = e.getWidth();
-        originalHeight = e.getHeight();
-        showSelectionMessage(e);
     }
 
     public void referenceSelectListener(final ImageAreaSelectEvent e) {
         if (e.getWidth() < MIN_SELECTION_SIZE || e.getHeight() < MIN_SELECTION_SIZE) {
             showSmallRegionErrorMessage();
-            return;
+            referenceSelected = false;
+        } else {
+            referenceX = e.getX1();
+            referenceY = e.getY1();
+            referenceWidth = e.getWidth();
+            referenceHeight = e.getHeight();
+            showSelectionMessage(e);
+            referenceSelected = true;
         }
-        referenceX = e.getX1();
-        referenceY = e.getY1();
-        referenceWidth = e.getWidth();
-        referenceHeight = e.getHeight();
-        showSelectionMessage(e);
     }
 
     private void showSmallRegionErrorMessage() {
@@ -93,18 +94,7 @@ public class FaceSelectionView {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public StreamedContent getOriginalImageForDisplay() {
-        return ImageDisplayUtils
-                .getImageAsStreamedContent(sessionBean.getOriginalImage());
-    }
-
-    public StreamedContent getReferenceImageForDisplay() {
-        return ImageDisplayUtils
-                .getImageAsStreamedContent(sessionBean.getReferenceImage());
-    }
-
     public String next() {
-
         Logger.info("originalX {}", originalX);
         Logger.info("originalY {}", originalY);
         Logger.info("originalWidth {}", originalWidth);
@@ -144,7 +134,26 @@ public class FaceSelectionView {
     }
 
     public String back() {
+        setDefaultValues();
         return "upload-images?faces-redirect=true";
+    }
+
+    public StreamedContent getOriginalImageForDisplay() {
+        return ImageDisplayUtils
+                .getImageAsStreamedContent(sessionBean.getOriginalImage());
+    }
+
+    public StreamedContent getReferenceImageForDisplay() {
+        return ImageDisplayUtils
+                .getImageAsStreamedContent(sessionBean.getReferenceImage());
+    }
+
+    public boolean getOriginalSelected() {
+        return originalSelected;
+    }
+
+    public boolean getReferenceSelected() {
+        return referenceSelected;
     }
 
     public void setSessionBean(SessionBean sessionBean) {
