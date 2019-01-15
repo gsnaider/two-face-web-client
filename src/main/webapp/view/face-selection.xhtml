@@ -31,6 +31,7 @@
 
             <font size="4">
                 <br/>
+                <br/>
                 Aquí puede seleccionar la región donde se encuentra la cara en cada imágen.
                 <br/>
                 Si no desea realizar ninguna selección, puede continuar al siguiente paso.
@@ -47,6 +48,11 @@
                                     cache="false"
                                     width="300"
                                     height="300"/>
+
+                    <!--TODO see why the minWidth and minHeight are not working.
+                    The validation is implemented in the backend for now.-->
+                    <!--TODO see if we can make the selection appear by default
+                    for the whole image (and make it persistent).-->
                     <pe:imageAreaSelect id="originalAreaSelect"
                                         for="originalImage" handles="true"
                                         aspectRatio="1:1"
