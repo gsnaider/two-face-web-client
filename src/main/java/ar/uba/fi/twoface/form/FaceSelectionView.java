@@ -19,6 +19,8 @@ import static ar.uba.fi.twoface.model.Constants.*;
 @SessionScoped
 public class FaceSelectionView {
 
+    private static final int MIN_SELECTION_SIZE = 50;
+
     private Model model;
 
     @ManagedProperty(value = "#{sessionBean}")
@@ -53,6 +55,10 @@ public class FaceSelectionView {
     }
 
     public void originalSelectListener(final ImageAreaSelectEvent e) {
+        if (e.getWidth() < MIN_SELECTION_SIZE || e.getHeight() < MIN_SELECTION_SIZE) {
+            showSmallRegionErrorMessage();
+            return;
+        }
         originalX = e.getX1();
         originalY = e.getY1();
         originalWidth = e.getWidth();
@@ -61,11 +67,21 @@ public class FaceSelectionView {
     }
 
     public void referenceSelectListener(final ImageAreaSelectEvent e) {
+        if (e.getWidth() < MIN_SELECTION_SIZE || e.getHeight() < MIN_SELECTION_SIZE) {
+            showSmallRegionErrorMessage();
+            return;
+        }
         referenceX = e.getX1();
         referenceY = e.getY1();
         referenceWidth = e.getWidth();
         referenceHeight = e.getHeight();
         showSelectionMessage(e);
+    }
+
+    private void showSmallRegionErrorMessage() {
+        final FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Selección inválida",
+                "Debe seleccionar una región más grande.");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     private void showSelectionMessage(final ImageAreaSelectEvent e) {

@@ -35,7 +35,8 @@
                                 height="300"/>
 
                 <!--https://www.primefaces.org/showcase-ext/sections/imageAreaSelect/basicSelection.jsf-->
-                <pe:imageAreaSelect id="areaSelect" for="originalImage" handles="true">
+                <pe:imageAreaSelect id="areaSelect" widgetVar="myTest" for="originalImage" handles="true" minHeight="50"
+                                    minWidth="50" aspectRatio="1:1">
                     <p:ajax event="selectEnd" listener="#{maskView.selectEndListener}" update="growl"/>
                 </pe:imageAreaSelect>
             </p:panel>
@@ -43,6 +44,7 @@
 
     </ui:define>
 </ui:composition>
-
 </body>
+
+
 </html>

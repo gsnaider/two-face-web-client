@@ -38,9 +38,6 @@
                 <br/>
             </font>
 
-            <!--TODO either make the selections persistent, or make it so that if the user clicks in the image,
-                thus selecting a single point, that counts as clearing the selection. -->
-
             <h:panelGrid columns="2" cellpadding="25" width="60%">
                 <p:panel header="Imágen original"
                          style="margin-bottom:20px;text-align: center"
@@ -52,6 +49,9 @@
                                     height="300"/>
                     <pe:imageAreaSelect id="originalAreaSelect"
                                         for="originalImage" handles="true"
+                                        aspectRatio="1:1"
+                                        minHeight="50"
+                                        minWidth="50"
                                         imageWidth="#{sessionBean.originalImage.width}"
                                         imageHeight="#{sessionBean.originalImage.height}">
                         <p:ajax event="selectEnd"
@@ -71,6 +71,9 @@
                                     height="300"/>
                     <pe:imageAreaSelect id="referenceAreaSelect"
                                         for="referenceImage" handles="true"
+                                        aspectRatio="1:1"
+                                        minHeight="50"
+                                        minWidth="50"
                                         imageWidth="#{sessionBean.referenceImage.width}"
                                         imageHeight="#{sessionBean.referenceImage.height}">
                         <p:ajax event="selectEnd"
