@@ -42,13 +42,13 @@ public final class ImageUtils {
         int width = image.getWidth();
         int height = image.getHeight();
 
-        double[][][] normalizedPixels = new double[width][height][];
+        double[][][] normalizedPixels = new double[height][width][];
 
         for (int col = 0; col < width; col++) {
             for (int row = 0; row < height; row++) {
                 int rgb = image.getRGB(col, row);
                 double[] normalizedPixel = normalizePixel(rgb);
-                normalizedPixels[col][row] = normalizedPixel;
+                normalizedPixels[row][col] = normalizedPixel;
             }
         }
 
@@ -56,13 +56,13 @@ public final class ImageUtils {
     }
 
     public static BufferedImage pixelsToBufferedImage(double[][][] pixels) {
-        int width = pixels.length;
-        int height = pixels[0].length;
+        int height = pixels.length;
+        int width = pixels[0].length;
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
         for (int col = 0; col < width; col++) {
             for (int row = 0; row < height; row++) {
-                image.setRGB(col, row, getRGB(pixels[col][row]));
+                image.setRGB(col, row, getRGB(pixels[row][col]));
             }
         }
         return image;
