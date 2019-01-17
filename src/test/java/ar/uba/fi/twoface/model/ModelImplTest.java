@@ -17,10 +17,10 @@ public class ModelImplTest {
 
     private static final String TEST_BACKEND_LOCATION = "http://localhost:8501/v1/models";
 
-    private static final String TEST_MASK_IMAGE_PATH = "/home/gaston/workspace/datasets/CASIA-WebFace/CASIA-WebFace/data/test/0000102/003.jpg";
-    private static final String TEST_REFERENCE_IMAGE_PATH = "/home/gaston/workspace/datasets/CASIA-WebFace/CASIA-WebFace/data/test/0000102/004.jpg";
+    private static final String TEST_MASK_IMAGE_PATH = "src/test/resources/original.jpg";
+    private static final String TEST_REFERENCE_IMAGE_PATH = "src/test/resources/reference.jpg";
 
-    Model model = new ModelImpl(TEST_BACKEND_LOCATION);
+    private Model model = new ModelImpl(TEST_BACKEND_LOCATION);
 
     @Test
     public void testModel() throws IOException, TwoFaceException {
@@ -35,10 +35,14 @@ public class ModelImplTest {
         int maskUpperLeftRow = (IMAGE_HEIGHT - PATCH_HEIGHT) / 2;
 
         model.maskImage(maskedImage, new Rectangle(maskUpperLeftCol, maskUpperLeftRow, PATCH_WIDTH, PATCH_HEIGHT));
-        ImageIO.write(maskedImage, "jpg", new File("masked.jpg"));
+        File maskedFile = new File("src/test/results/masked.jpg");
+        maskedFile.getParentFile().mkdirs();
+        ImageIO.write(maskedImage, "jpg", maskedFile);
 
         BufferedImage response = model.patchImage(maskedImage, referenceImage);
-        ImageIO.write(response, "jpg", new File("patched.jpg"));
+        File responseFile = new File("src/test/results/patched.jpg");
+        responseFile.getParentFile().mkdirs();
+        ImageIO.write(response, "jpg", responseFile);
     }
 
 }
