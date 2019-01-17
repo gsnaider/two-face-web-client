@@ -41,7 +41,6 @@ public class MaskedImageView {
                 .getImageAsStreamedContent(sessionBean.getCroppedReferenceImage());
     }
 
-    // TODO see if the mask should be done in another place (not the get method for display).
     public StreamedContent getMaskedImageForDisplay() {
         return ImageDisplayUtils
                 .getImageAsStreamedContent(sessionBean.getMaskedImage());

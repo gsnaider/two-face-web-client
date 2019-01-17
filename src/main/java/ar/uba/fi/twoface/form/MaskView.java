@@ -13,9 +13,6 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class MaskView {
 
-    // TODO mask sizes are based on the size of the display image, not the size of the BufferedImage.
-    // See how to fix this.
-
     public void selectEndListener(final ImageAreaSelectEvent e) {
         final FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Area selected",
                 "X1: " + e.getX1()
