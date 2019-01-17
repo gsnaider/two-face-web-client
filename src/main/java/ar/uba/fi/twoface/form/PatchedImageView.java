@@ -38,9 +38,9 @@ public class PatchedImageView {
 
     }
 
-    public StreamedContent getOriginalImageForDisplay() {
+    public StreamedContent getMaskedImageForDisplay() {
         return ImageDisplayUtils
-                .getImageAsStreamedContent(sessionBean.getCroppedOriginalImage());
+                .getImageAsStreamedContent(sessionBean.getMaskedImage());
     }
 
     public StreamedContent getReferenceImageForDisplay() {

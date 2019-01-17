@@ -28,24 +28,14 @@
         <br/>
 
         <h:form>
-            <h:panelGrid columns="3" cellpadding="25" width="60%">
-                <p:panel header="Imágen original"
-                         style="margin-bottom:20px;text-align: center"
-                         styleClass="customTitleBar">
-                    <p:graphicImage id="originalImage"
-                                    value="#{maskedImageView.originalImageForDisplay}"
-                                    cache="false"
-                                    width="300"
-                                    height="300"/>
-                </p:panel>
+            <h:panelGrid columns="2" cellpadding="25" width="60%">
                 <p:panel header="Imágen enmascarada"
                          style="margin-bottom:20px;text-align: center"
                          styleClass="customTitleBar">
                     <p:graphicImage id="maskedImage"
                                     value="#{maskedImageView.maskedImageForDisplay}"
                                     cache="false"
-                                    width="300"
-                                    height="300"/>
+                                    height="400"/>
                 </p:panel>
                 <p:panel header="Imágen de referencia"
                          style="margin-bottom:20px;text-align: center"
@@ -53,8 +43,7 @@
                     <p:graphicImage id="referenceImage"
                                     value="#{maskedImageView.referenceImageForDisplay}"
                                     cache="false"
-                                    width="300"
-                                    height="300"/>
+                                    height="400"/>
                 </p:panel>
             </h:panelGrid>
 
