@@ -28,7 +28,7 @@
         <br/>
         <h:form>
             <h:panelGrid columns="2" cellpadding="25" width="60%">
-                <p:panel header="Imágen a modificar"
+                <p:panel header="Imagen a modificar"
                          style="margin-bottom:20px;text-align: center"
                          styleClass="customTitleBar">
                     <h:panelGrid columns="1" cellpadding="5" width="100%">
@@ -39,6 +39,7 @@
                         <p:fileUpload
                                 styleClass="fileupload-simple"
                                 style="width: 40%"
+                                label="Elegir"
                                 fileUploadListener="#{uploadImagesView.uploadImageToModify}"
                                 mode="advanced"
                                 update="imageToModify nextButton" auto="true"
@@ -47,7 +48,7 @@
                     </h:panelGrid>
                 </p:panel>
 
-                <p:panel header="Imágen de referencia"
+                <p:panel header="Imagen de referencia"
                          style="margin-bottom:20px;text-align: center"
                          styleClass="customTitleBar">
                     <h:panelGrid columns="1" cellpadding="5" width="100%">
@@ -58,6 +59,7 @@
                         <p:fileUpload
                                 styleClass="fileupload-simple"
                                 style="width: 40%"
+                                label="Elegir"
                                 fileUploadListener="#{uploadImagesView.uploadReferenceImage}"
                                 mode="advanced"
                                 update="referenceImage nextButton" auto="true"
