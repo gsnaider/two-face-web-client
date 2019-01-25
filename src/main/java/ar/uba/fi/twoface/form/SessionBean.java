@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 public class SessionBean {
 
     private BufferedImage originalImage;
+    private boolean useReferenceImage;
     private BufferedImage referenceImage;
     private BufferedImage croppedOriginalImage;
     private BufferedImage croppedReferenceImage;
@@ -21,6 +22,14 @@ public class SessionBean {
 
     public void setOriginalImage(BufferedImage originalImage) {
         this.originalImage = originalImage;
+    }
+
+    public boolean getUseReferenceImage() {
+        return useReferenceImage;
+    }
+
+    public void setUseReferenceImage(boolean useReferenceImage) {
+        this.useReferenceImage = useReferenceImage;
     }
 
     public BufferedImage getReferenceImage() {

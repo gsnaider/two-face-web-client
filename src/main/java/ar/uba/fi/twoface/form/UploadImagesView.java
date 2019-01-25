@@ -86,7 +86,21 @@ public class UploadImagesView {
         return placeholder;
     }
 
+    private static BufferedImage blankReferenceImage() {
+        BufferedImage blankImage =
+                new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graph = blankImage.createGraphics();
+        graph.setColor(Color.BLACK);
+        graph.fillRect(0, 0, blankImage.getWidth(), blankImage.getHeight());
+        graph.dispose();
+        return blankImage;
+    }
+
     public String next() {
+        sessionBean.setUseReferenceImage(useReferenceImage);
+        if (!useReferenceImage) {
+            sessionBean.setReferenceImage(blankReferenceImage());
+        }
         return "face-selection?faces-redirect=true";
     }
 
