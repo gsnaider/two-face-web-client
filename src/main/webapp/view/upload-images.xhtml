@@ -27,7 +27,12 @@
         <br/>
         <br/>
         <h:form>
-            <h:panelGrid columns="2" cellpadding="25" width="60%">
+            <p:selectBooleanCheckbox
+                    value="#{uploadImagesView.useReferenceImage}"
+                    itemLabel="Usar imagen de referencia">
+                <p:ajax update="referenceImagePanel nextButton" immediate="true"/>
+            </p:selectBooleanCheckbox>
+            <h:panelGrid columns="2" cellpadding="25" width="#{uploadImagesView.useReferenceImage ? '60%' : '30%'}">
                 <p:panel header="Imagen a modificar"
                          style="margin-bottom:20px;text-align: center"
                          styleClass="customTitleBar">
@@ -48,25 +53,29 @@
                     </h:panelGrid>
                 </p:panel>
 
-                <p:panel header="Imagen de referencia"
-                         style="margin-bottom:20px;text-align: center"
-                         styleClass="customTitleBar">
-                    <h:panelGrid columns="1" cellpadding="5" width="100%">
-                        <p:graphicImage id="referenceImage"
-                                        value="#{uploadImagesView.referenceImageForDisplay}"
-                                        cache="false"
-                                        height="400"/>
-                        <p:fileUpload
-                                styleClass="fileupload-simple"
-                                style="width: 40%"
-                                label="Elegir"
-                                fileUploadListener="#{uploadImagesView.uploadReferenceImage}"
-                                mode="advanced"
-                                update="referenceImage nextButton" auto="true"
-                                sizeLimit="10000000"
-                                allowTypes="/(\.|\/)(jpe?g|png)$/"/>
-                    </h:panelGrid>
-                </p:panel>
+
+                <h:panelGroup id="referenceImagePanel" layout="block">
+                    <p:panel rendered="#{uploadImagesView.useReferenceImage}"
+                             header="Imagen de referencia"
+                             style="margin-bottom:20px;text-align: center"
+                             styleClass="customTitleBar">
+                        <h:panelGrid columns="1" cellpadding="5" width="100%">
+                            <p:graphicImage id="referenceImage"
+                                            value="#{uploadImagesView.referenceImageForDisplay}"
+                                            cache="false"
+                                            height="400"/>
+                            <p:fileUpload
+                                    styleClass="fileupload-simple"
+                                    style="width: 40%"
+                                    label="Elegir"
+                                    fileUploadListener="#{uploadImagesView.uploadReferenceImage}"
+                                    mode="advanced"
+                                    update="referenceImage nextButton" auto="true"
+                                    sizeLimit="10000000"
+                                    allowTypes="/(\.|\/)(jpe?g|png)$/"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:panelGroup>
             </h:panelGrid>
 
 
@@ -79,8 +88,8 @@
                 <p:commandButton value="Siguiente" ajax="false"
                                  id="nextButton"
                                  action="#{uploadImagesView.next}"
-                                 disabled="#{(not uploadImagesView.imageToModifyUploaded)
-                                 or (not uploadImagesView.referenceImageUploaded)}"
+                                 disabled="#{not uploadImagesView.imageToModifyUploaded
+                                 or (not uploadImagesView.referenceImageUploaded and uploadImagesView.useReferenceImage)}"
                                  styleClass="ui-priority-primary"/>
             </h:panelGrid>
 
