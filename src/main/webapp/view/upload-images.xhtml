@@ -30,52 +30,54 @@
             <p:selectBooleanCheckbox
                     value="#{uploadImagesView.useReferenceImage}"
                     itemLabel="Usar imagen de referencia">
-                <p:ajax update="referenceImagePanel nextButton" immediate="true"/>
+                <p:ajax update="imagesPanel referenceImagePanel nextButton" immediate="true"/>
             </p:selectBooleanCheckbox>
-            <h:panelGrid columns="2" cellpadding="25" width="#{uploadImagesView.useReferenceImage ? '60%' : '30%'}">
-                <p:panel header="Imagen a modificar"
-                         style="margin-bottom:20px;text-align: center"
-                         styleClass="customTitleBar">
-                    <h:panelGrid columns="1" cellpadding="5" width="100%">
-                        <p:graphicImage id="imageToModify"
-                                        value="#{uploadImagesView.imageToModifyForDisplay}"
-                                        cache="false"
-                                        height="400"/>
-                        <p:fileUpload
-                                styleClass="fileupload-simple"
-                                style="width: 40%"
-                                label="Elegir"
-                                fileUploadListener="#{uploadImagesView.uploadImageToModify}"
-                                mode="advanced"
-                                update="imageToModify nextButton" auto="true"
-                                sizeLimit="10000000"
-                                allowTypes="/(\.|\/)(jpe?g|png)$/"/>
-                    </h:panelGrid>
-                </p:panel>
-
-                <h:panelGroup id="referenceImagePanel" layout="block">
-                    <p:panel header="Imagen de referencia"
-                             visible="#{uploadImagesView.useReferenceImage}"
+            <h:panelGroup id="imagesPanel" layout="block">
+                <h:panelGrid columns="2" cellpadding="25" width="#{uploadImagesView.useReferenceImage ? '60%' : '30%'}">
+                    <p:panel header="Imagen a modificar"
                              style="margin-bottom:20px;text-align: center"
                              styleClass="customTitleBar">
                         <h:panelGrid columns="1" cellpadding="5" width="100%">
-                            <p:graphicImage id="referenceImage"
-                                            value="#{uploadImagesView.referenceImageForDisplay}"
+                            <p:graphicImage id="imageToModify"
+                                            value="#{uploadImagesView.imageToModifyForDisplay}"
                                             cache="false"
                                             height="400"/>
                             <p:fileUpload
                                     styleClass="fileupload-simple"
                                     style="width: 40%"
                                     label="Elegir"
-                                    fileUploadListener="#{uploadImagesView.uploadReferenceImage}"
+                                    fileUploadListener="#{uploadImagesView.uploadImageToModify}"
                                     mode="advanced"
-                                    update="referenceImage nextButton" auto="true"
+                                    update="imageToModify nextButton" auto="true"
                                     sizeLimit="10000000"
                                     allowTypes="/(\.|\/)(jpe?g|png)$/"/>
                         </h:panelGrid>
                     </p:panel>
-                </h:panelGroup>
-            </h:panelGrid>
+
+                    <h:panelGroup id="referenceImagePanel" layout="block">
+                        <p:panel header="Imagen de referencia"
+                                 visible="#{uploadImagesView.useReferenceImage}"
+                                 style="margin-bottom:20px;text-align: center"
+                                 styleClass="customTitleBar">
+                            <h:panelGrid columns="1" cellpadding="5" width="100%">
+                                <p:graphicImage id="referenceImage"
+                                                value="#{uploadImagesView.referenceImageForDisplay}"
+                                                cache="false"
+                                                height="400"/>
+                                <p:fileUpload
+                                        styleClass="fileupload-simple"
+                                        style="width: 40%"
+                                        label="Elegir"
+                                        fileUploadListener="#{uploadImagesView.uploadReferenceImage}"
+                                        mode="advanced"
+                                        update="referenceImage nextButton" auto="true"
+                                        sizeLimit="10000000"
+                                        allowTypes="/(\.|\/)(jpe?g|png)$/"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </h:panelGroup>
 
 
             <h:panelGrid columns="2" cellpadding="5">

@@ -88,7 +88,7 @@
                                  id="nextButton"
                                  action="#{faceSelectionView.next}"
                                  disabled="#{(not faceSelectionView.originalSelected)
-                                 or (not faceSelectionView.referenceSelected)}"
+                                 or (sessionBean.useReferenceImage and not faceSelectionView.referenceSelected)}"
                                  styleClass="ui-priority-primary"/>
             </h:panelGrid>
         </h:form>

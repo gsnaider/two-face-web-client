@@ -99,7 +99,6 @@ public class FaceSelectionView {
         Logger.info("originalY {}", originalY);
         Logger.info("originalWidth {}", originalWidth);
         Logger.info("originalHeight {}", originalHeight);
-        Logger.info("Original image ");
 
         Logger.info("referenceX {}", referenceX);
         Logger.info("referenceY {}", referenceY);
@@ -114,12 +113,14 @@ public class FaceSelectionView {
                         originalWidth,
                         originalHeight);
         BufferedImage croppedReferenceImage =
-                model.crop(
-                        sessionBean.getReferenceImage(),
-                        referenceX,
-                        referenceY,
-                        referenceWidth,
-                        referenceHeight);
+                sessionBean.getUseReferenceImage() ?
+                        model.crop(
+                                sessionBean.getReferenceImage(),
+                                referenceX,
+                                referenceY,
+                                referenceWidth,
+                                referenceHeight) :
+                        sessionBean.getReferenceImage();
 
         croppedOriginalImage =
                 model.resize(croppedOriginalImage, IMAGE_WIDTH, IMAGE_HEIGHT);
