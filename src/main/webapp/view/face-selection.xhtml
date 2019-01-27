@@ -36,7 +36,7 @@
                 <br/>
             </font>
 
-            <h:panelGrid columns="2" cellpadding="25" width="60%">
+            <h:panelGrid columns="2" cellpadding="25" width="#{sessionBean.useReferenceImage ? '60%' : '30%'}">
                 <p:panel header="Imagen original"
                          style="margin-bottom:20px;text-align: center"
                          styleClass="customTitleBar">
@@ -58,7 +58,9 @@
                     </pe:imageAreaSelect>
                 </p:panel>
 
+
                 <p:panel header="Imagen de referencia"
+                         visible="#{sessionBean.useReferenceImage}"
                          style="margin-bottom:20px;text-align: center"
                          styleClass="customTitleBar">
                     <p:graphicImage id="referenceImage"

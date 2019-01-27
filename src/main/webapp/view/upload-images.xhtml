@@ -53,10 +53,9 @@
                     </h:panelGrid>
                 </p:panel>
 
-
                 <h:panelGroup id="referenceImagePanel" layout="block">
-                    <p:panel rendered="#{uploadImagesView.useReferenceImage}"
-                             header="Imagen de referencia"
+                    <p:panel header="Imagen de referencia"
+                             visible="#{uploadImagesView.useReferenceImage}"
                              style="margin-bottom:20px;text-align: center"
                              styleClass="customTitleBar">
                         <h:panelGrid columns="1" cellpadding="5" width="100%">

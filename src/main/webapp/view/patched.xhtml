@@ -27,7 +27,7 @@
         <br/>
 
         <h:form>
-            <h:panelGrid columns="3" cellpadding="25" width="60%">
+            <h:panelGrid columns="3" cellpadding="25" width="#{sessionBean.useReferenceImage ? '90%' : '60%'}%">
                 <p:panel header="Imagen enmascarada"
                          style="margin-bottom:20px;text-align: center"
                          styleClass="customTitleBar">
@@ -45,6 +45,7 @@
                                     height="400"/>
                 </p:panel>
                 <p:panel header="Imagen de referencia"
+                         visible="#{uploadImagesView.useReferenceImage}"
                          style="margin-bottom:20px;text-align: center"
                          styleClass="customTitleBar">
                     <p:graphicImage id="referenceImage"
