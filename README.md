@@ -7,7 +7,6 @@ Two-Face Inpainting was implemented as the final project for my Software Enginee
 <img src="./screenshots/web-app-3.png" alt="Screenshot 1">
 <img src="./screenshots/web-app-5.png" alt="Screenshot 2">
 
-
 ## Index  
 - [Documentation](#documentation)
 - [Deployment](#deployment)
@@ -17,7 +16,6 @@ Two-Face Inpainting was implemented as the final project for my Software Enginee
         + [Maven (for deploy from sources)](#maven)
     * [Deploy from binaries](#deploy-from-bin)
     * [Deploy from sources](#deploy-from-src)
-
 
 <a name="documentation"/>
 
