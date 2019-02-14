@@ -5,7 +5,6 @@ This application allows the user to upload pictures of any person, crop the face
 Two-Face Inpainting was implemented as the final project for my Software Engineering degree at the University of Buenos Aires.
 
 <img src="./screenshots/web-app-3.png" alt="Screenshot 1">
-<br/>
 <img src="./screenshots/web-app-5.png" alt="Screenshot 2">
 
 
