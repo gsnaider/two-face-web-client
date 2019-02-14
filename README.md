@@ -14,6 +14,7 @@ Two-Face Inpainting was implemented as the final project for my Software Enginee
         + [Java 8](#java-8)
         + [Apache Tomcat](#apache-tomcat)
         + [Maven (for deploy from sources)](#maven)
+        + [Deploy TensorFlow Serving](#deploy-tf-serving)
     * [Deploy from binaries](#deploy-from-bin)
     * [Deploy from sources](#deploy-from-src)
 
@@ -97,6 +98,12 @@ For verifying the instalation, execute:
 mvn --version
 ```
 
+<a name="deploy-tf-serving"/>
+
+#### Deploy TensorFlow Serving
+
+Before deploying the Web Application, you will have to deploy the TensorFlow Serving containing the Two-Face Inpainting trained model. The process for deploying this server is described here: https://github.com/gsnaider/two-face-inpainting#deployment.
+
 <a name="deploy-from-bin"/>
 
 ### Deploy from binaries
@@ -124,7 +131,7 @@ For monitoring the application logs, execute:
 tail -f logs/catalina.out
 ```
 
-Once the server starts, you can open the link http://localhost:8080/two-face-inpainting in a browser to use the application.
+Once the server starts, you can open the link http://localhost:8080/two-face-inpainting in a browser to use the application.<br/>
 
 <a name="deploy-from-src"/>
 
