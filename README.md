@@ -27,7 +27,7 @@ The full documentation of the project can be found [here](https://github.com/gsn
 
 ## Deployment
 This section describes how to deploy the web application both from binaries and from sources, as well as the requirements to do so. Note that these instructions where only tested on Ubuntu 16.04.<br/>
-If you want to run the whole application locally (the Web Application and [TensorFlow Serving](https://github.com/gsnaider/two-face-inpainting#deployment)), you can use the provided `two-face-inpainting.war` file from the Release 1.0. If you want to specify a different path for the TensorFlow Serving, you will have to edit the `backend` parameter in the `web.xml` file, and recompile from source.
+If you want to run the whole application locally (the Web Application and [TensorFlow Serving](https://github.com/gsnaider/two-face-inpainting#deployment)), you can use the provided `two-face-inpainting.war` file from the Release 1.1. If you want to specify a different path for the TensorFlow Serving, you will have to edit the `backend` parameter in the `web.xml` file, and recompile from source.
 
 <a name="deploy-pre-requisites"/>
 
@@ -108,7 +108,7 @@ Before deploying the Web Application, you will have to deploy the TensorFlow Ser
 
 ### Deploy from binaries
 
-Download the `two-face-inpainting.war` file from the Release 1.0, and move it to Tomcat's `webapps` directory:
+Download the `two-face-inpainting.war` file from the Release 1.1, and move it to Tomcat's `webapps` directory:
 
 ```sh
 sudo mv two-face-inpainting.war /opt/tomcat/apache-tomcat-9.0.10/webapps/
